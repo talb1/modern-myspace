@@ -73,9 +73,9 @@ const profileAgeEl      = document.getElementById('profileAge');
 const profileTaglineEl  = document.getElementById('profileTagline');
 const profileLocationEl = document.getElementById('profileLocation');
 const profileGenreEl    = document.getElementById('profileGenre');
-const postBoxAvatar     = document.querySelector('.post-box-avatar');
+const profileMoodDisplay = document.getElementById('profileMoodDisplay');
+const postBoxAvatar     = document.getElementById('postBoxAvatar');
 
-// Open edit profile modal, pre-fill current values
 document.getElementById('editProfileBtn').addEventListener('click', () => {
   document.getElementById('editName').value     = profileNameEl.childNodes[0].textContent.trim();
   document.getElementById('editAge').value      = profileAgeEl.textContent.trim();
@@ -104,6 +104,31 @@ document.getElementById('editProfileForm').addEventListener('submit', e => {
   showToast('Profile updated! ✨', 'success');
 });
 
+// ===== ABOUT ME EDIT =====
+const aboutText     = document.getElementById('aboutText');
+const aboutEdit     = document.getElementById('aboutEdit');
+const aboutTextarea = document.getElementById('aboutTextarea');
+
+document.getElementById('editAboutBtn').addEventListener('click', () => {
+  aboutTextarea.value = aboutText.textContent;
+  aboutText.classList.add('hidden');
+  aboutEdit.classList.remove('hidden');
+  aboutTextarea.focus();
+});
+
+document.getElementById('saveAboutBtn').addEventListener('click', () => {
+  const val = aboutTextarea.value.trim();
+  if (val) aboutText.textContent = val;
+  aboutEdit.classList.add('hidden');
+  aboutText.classList.remove('hidden');
+  showToast('About Me updated! ✨', 'success');
+});
+
+document.getElementById('cancelAboutBtn').addEventListener('click', () => {
+  aboutEdit.classList.add('hidden');
+  aboutText.classList.remove('hidden');
+});
+
 // ===== AVATAR EDIT =====
 const avatarInput = document.getElementById('avatarInput');
 
@@ -115,8 +140,8 @@ avatarInput.addEventListener('change', () => {
   const url = URL.createObjectURL(file);
   profileAvatarEl.src = url;
   if (postBoxAvatar) postBoxAvatar.src = url;
-  // Update all "my" comment/guestbook avatars
   document.querySelectorAll('.comment-input-row .comment-avatar').forEach(img => img.src = url);
+  document.querySelectorAll('.post-avatar[src*="img=47"]').forEach(img => img.src = url);
   avatarInput.value = '';
   showToast('Profile photo updated! 📷', 'success');
 });
@@ -208,6 +233,7 @@ moodBtns.forEach(btn => {
     btn.classList.add('active');
     moodEmoji.textContent = btn.dataset.mood;
     moodText.textContent = btn.dataset.text;
+    if (profileMoodDisplay) profileMoodDisplay.textContent = `${btn.dataset.mood} ${btn.dataset.text}`;
     showToast(`Mood updated: ${btn.dataset.text}`, 'info');
   });
 });
