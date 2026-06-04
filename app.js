@@ -87,7 +87,7 @@ addFriendBtn.addEventListener('click', () => {
 
 // ===== SEND MESSAGE =====
 document.getElementById('sendMessageBtn').addEventListener('click', () => {
-  document.getElementById('messageRecipient').textContent = 'Alex Rivera';
+  document.getElementById('messageRecipient').textContent = 'Tal Bogachov';
   openModal('messageModal');
 });
 
@@ -312,7 +312,7 @@ document.addEventListener('keydown', e => {
   comment.className = 'comment';
   comment.innerHTML = `
     <img class="comment-avatar" src="https://i.pravatar.cc/28?img=47" alt="" />
-    <div class="comment-body"><strong>Alex Rivera</strong> ${escapeHtml(text)}</div>
+    <div class="comment-body"><strong>Tal Bogachov</strong> ${escapeHtml(text)}</div>
   `;
   section.insertBefore(comment, row);
   input.value = '';
@@ -353,7 +353,7 @@ postBtn.addEventListener('click', () => {
     <div class="post-header">
       <img class="post-avatar" src="https://i.pravatar.cc/40?img=47" alt="" />
       <div>
-        <span class="post-author">Alex Rivera</span>
+        <span class="post-author">Tal Bogachov</span>
         <span class="post-time">Just now</span>
       </div>
     </div>
@@ -414,7 +414,7 @@ gbBtn.addEventListener('click', () => {
   entry.innerHTML = `
     <img src="https://i.pravatar.cc/32?img=47" alt="" />
     <div>
-      <strong>Alex Rivera</strong>
+      <strong>Tal Bogachov</strong>
       <p>${escapeHtml(msg)}</p>
       <span class="gb-time">Just now</span>
     </div>
