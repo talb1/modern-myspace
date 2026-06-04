@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tal Bogachov — MySpace</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="#" class="logo">My<span>Space</span></a>
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Browse</a>
+        <a href="#">Search</a>
+        <a href="#">Invite</a>
+      </div>
+      <div class="nav-auth">
+        <button class="btn-ghost" id="navLogin">Log In</button>
+        <button class="btn-primary" id="navSignup">Sign Up</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PROFILE HERO -->
+  <div class="profile-hero">
+    <div class="hero-banner" id="profileBanner">
+      <button class="banner-edit-btn" id="bannerEditBtn">🎨 Change Banner</button>
+    </div>
+    <div class="hero-body">
+      <div class="hero-left">
+        <div class="hero-avatar-wrap" id="avatarWrap" title="Click to change photo">
+          <img class="hero-avatar" id="profileAvatar" src="https://i.pravatar.cc/120?img=47" alt="Avatar" />
+          <div class="avatar-overlay">📷</div>
+          <span class="online-dot"></span>
+        </div>
+        <div class="hero-info">
+          <h1 class="hero-name" id="profileName">Tal Bogachov <span class="hero-age" id="profileAge">24</span></h1>
+          <p class="hero-tagline" id="profileTagline">"living for the moment ✨"</p>
+          <div class="hero-meta">
+            <span id="profileLocation">📍 Los Angeles, CA</span>
+            <span id="profileGenre">🎵 Indie / Alt</span>
+            <span id="profileMoodDisplay">😊 Feeling good today</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-num">1,284</span><span class="stat-label">Friends</span></div>
+          <div class="stat"><span class="stat-num">847</span><span class="stat-label">Views</span></div>
+          <div class="stat"><span class="stat-num">62</span><span class="stat-label">Comments</span></div>
+        </div>
+        <button class="btn-primary" id="editProfileBtn">✏️ Edit Profile</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="layout">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar-left">
+
+      <!-- About Me -->
+      <div class="widget">
+        <h3 class="widget-title">
+          About Me
+          <button class="widget-edit-btn" id="editAboutBtn" title="Edit">✏️</button>
+        </h3>
+        <p class="about-text" id="aboutText">Hey! I'm Tal — music obsessed, always chasing sunsets, and probably overthinking something right now. Based in LA. Always down to connect with cool people. 🌊</p>
+        <div class="about-edit hidden" id="aboutEdit">
+          <textarea class="about-textarea" id="aboutTextarea"></textarea>
+          <div class="about-edit-actions">
+            <button class="btn-primary small" id="saveAboutBtn">Save</button>
+            <button class="btn-ghost small" id="cancelAboutBtn">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mood -->
+      <div class="widget" id="moodWidget">
+        <h3 class="widget-title">Mood</h3>
+        <div class="mood-row">
+          <span class="mood-emoji" id="moodEmoji">😊</span>
+          <span class="mood-text" id="moodText">Feeling good today</span>
+        </div>
+        <div class="mood-picker">
+          <button class="mood-btn" data-mood="😊" data-text="Feeling good today">😊</button>
+          <button class="mood-btn" data-mood="🎵" data-text="In the music zone">🎵</button>
+          <button class="mood-btn" data-mood="😴" data-text="So tired rn">😴</button>
+          <button class="mood-btn" data-mood="🔥" data-text="On fire today">🔥</button>
+          <button class="mood-btn" data-mood="💭" data-text="Lost in thought">💭</button>
+          <button class="mood-btn" data-mood="🌙" data-text="Late night vibes">🌙</button>
+        </div>
+      </div>
+
+      <!-- Now Playing -->
+      <div class="widget music-player">
+        <h3 class="widget-title">Now Playing</h3>
+        <div class="track-info">
+          <img class="track-art" src="https://picsum.photos/seed/album1/60/60" alt="Album Art" />
+          <div>
+            <div class="track-name" id="trackName">Neon Dreams</div>
+            <div class="track-artist" id="trackArtist">The Midnight</div>
+          </div>
+        </div>
+        <div class="player-bar">
+          <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="time-row">
+            <span id="currentTime">0:00</span>
+            <span>3:42</span>
+          </div>
+        </div>
+        <div class="player-controls">
+          <button class="ctrl-btn" id="prevBtn">⏮</button>
+          <button class="ctrl-btn play-btn" id="playBtn">▶</button>
+          <button class="ctrl-btn" id="nextBtn">⏭</button>
+        </div>
+        <div class="playlist">
+          <div class="playlist-item active" data-song="0">Neon Dreams — The Midnight</div>
+          <div class="playlist-item" data-song="1">Stranger — Bad Omens</div>
+          <div class="playlist-item" data-song="2">Blinding Lights — The Weeknd</div>
+          <div class="playlist-item" data-song="3">Heat Waves — Glass Animals</div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- MAIN FEED: Tal's Posts -->
+    <main class="main-feed">
+
+      <div class="feed-header">
+        <h2 class="feed-title">Tal's Posts</h2>
+      </div>
+
+      <!-- Post box -->
+      <div class="post-box">
+        <img class="post-box-avatar" id="postBoxAvatar" src="https://i.pravatar.cc/40?img=47" alt="" />
+        <div class="post-box-right">
+          <textarea class="post-input" id="statusInput" placeholder="What's on your mind, Tal?"></textarea>
+          <div class="post-box-footer">
+            <div class="post-attachments">
+              <button class="attach-btn" id="attachPhoto" title="Photo">📷</button>
+              <button class="attach-btn" id="attachMusic" title="Music">🎵</button>
+              <button class="attach-btn" id="attachMood" title="Mood">😊</button>
+            </div>
+            <button class="btn-primary" id="postBtn">Post</button>
+          </div>
+          <div class="photo-preview hidden" id="photoPreview">
+            <img id="photoPreviewImg" src="" alt="preview" />
+            <button class="remove-photo" id="removePhoto">✕</button>
+          </div>
+          <div class="song-attach-preview hidden" id="songAttachPreview">
+            <span id="songAttachText"></span>
+            <button class="remove-photo" id="removeSong">✕</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feed -->
+      <div class="feed" id="feed">
+
+        <article class="post-card">
+          <div class="post-header">
+            <img class="post-avatar" src="https://i.pravatar.cc/40?img=47" alt="" />
+            <div>
+              <span class="post-author">Tal Bogachov</span>
+              <span class="post-time">3 hours ago</span>
+            </div>
+          </div>
+          <p class="post-body">golden hour hits different when you're on the highway with no destination 🌅</p>
+          <div class="post-image-grid">
+            <img src="https://picsum.photos/seed/sunset1/300/200" alt="" />
+            <img src="https://picsum.photos/seed/highway/300/200" alt="" />
+          </div>
+          <div class="post-actions">
+            <button class="react-btn" data-type="heart">❤️ <span>93</span></button>
+            <button class="react-btn" data-type="fire">🔥 <span>17</span></button>
+            <button class="react-btn" data-type="comment" onclick="toggleComments(this)">💬 <span>12</span></button>
+            <button class="react-btn share-btn">↗ Share</button>
+          </div>
+          <div class="comments-section hidden">
+            <div class="comment">
+              <img class="comment-avatar" src="https://i.pravatar.cc/28?img=12" alt="" />
+              <div class="comment-body"><strong>Jamie</strong> these shots are insane 🔥</div>
+            </div>
+            <div class="comment">
+              <img class="comment-avatar" src="https://i.pravatar.cc/28?img=5" alt="" />
+              <div class="comment-body"><strong>Morgan</strong> take me with you next time!!</div>
+            </div>
+            <div class="comment-input-row">
+              <img class="comment-avatar" src="https://i.pravatar.cc/28?img=47" alt="" />
+              <input class="comment-input" placeholder="Add a comment..." />
+            </div>
+          </div>
+        </article>
+
+        <article class="post-card">
+          <div class="post-header">
+            <img class="post-avatar" src="https://i.pravatar.cc/40?img=47" alt="" />
+            <div>
+              <span class="post-author">Tal Bogachov</span>
+              <span class="post-time">Yesterday</span>
+            </div>
+          </div>
+          <p class="post-body">just added this to my profile song 🎵 — it's been on repeat for 3 days straight, no notes</p>
+          <div class="song-share-card">
+            <img src="https://picsum.photos/seed/album2/56/56" alt="Album" />
+            <div>
+              <div class="song-share-title">Neon Dreams</div>
+              <div class="song-share-artist">The Midnight</div>
+            </div>
+            <button class="btn-ghost small">▶ Play</button>
+          </div>
+          <div class="post-actions">
+            <button class="react-btn" data-type="heart">❤️ <span>41</span></button>
+            <button class="react-btn" data-type="fire">🔥 <span>5</span></button>
+            <button class="react-btn" data-type="comment" onclick="toggleComments(this)">💬 <span>7</span></button>
+            <button class="react-btn share-btn">↗ Share</button>
+          </div>
+          <div class="comments-section hidden">
+            <div class="comment">
+              <img class="comment-avatar" src="https://i.pravatar.cc/28?img=33" alt="" />
+              <div class="comment-body"><strong>Sam K.</strong> your taste is elite as always 🎵</div>
+            </div>
+            <div class="comment-input-row">
+              <img class="comment-avatar" src="https://i.pravatar.cc/28?img=47" alt="" />
+              <input class="comment-input" placeholder="Add a comment..." />
+            </div>
+          </div>
+        </article>
+
+        <article class="post-card">
+          <div class="post-header">
+            <img class="post-avatar" src="https://i.pravatar.cc/40?img=47" alt="" />
+            <div>
+              <span class="post-author">Tal Bogachov</span>
+              <span class="post-time">2 days ago</span>
+            </div>
+          </div>
+          <p class="post-body">new week, new energy. already manifesting something good 💭✨</p>
+          <div class="post-actions">
+            <button class="react-btn" data-type="heart">❤️ <span>58</span></button>
+            <button class="react-btn" data-type="fire">🔥 <span>11</span></button>
+            <button class="react-btn" data-type="comment" onclick="toggleComments(this)">💬 <span>4</span></button>
+            <button class="react-btn share-btn">↗ Share</button>
+          </div>
+          <div class="comments-section hidden">
+            <div class="comment">
+              <img class="comment-avatar" src="https://i.pravatar.cc/28?img=19" alt="" />
+              <div class="comment-body"><strong>Riley</strong> let's gooo 🙌</div>
+            </div>
+            <div class="comment-input-row">
+              <img class="comment-avatar" src="https://i.pravatar.cc/28?img=47" alt="" />
+              <input class="comment-input" placeholder="Add a comment..." />
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </main>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="sidebar-right">
+
+      <!-- Top 8 -->
+      <div class="widget">
+        <h3 class="widget-title">Top Friends</h3>
+        <div class="top8-grid">
+          <div class="top8-item"><img src="https://i.pravatar.cc/64?img=12" alt="Jamie" /><span>Jamie</span></div>
+          <div class="top8-item"><img src="https://i.pravatar.cc/64?img=5" alt="Morgan" /><span>Morgan</span></div>
+          <div class="top8-item"><img src="https://i.pravatar.cc/64?img=28" alt="Casey" /><span>Casey</span></div>
+          <div class="top8-item"><img src="https://i.pravatar.cc/64?img=33" alt="Sam" /><span>Sam</span></div>
+          <div class="top8-item"><img src="https://i.pravatar.cc/64?img=19" alt="Riley" /><span>Riley</span></div>
+          <div class="top8-item"><img src="https://i.pravatar.cc/64?img=44" alt="Jordan" /><span>Jordan</span></div>
+          <div class="top8-item"><img src="https://i.pravatar.cc/64?img=60" alt="Taylor" /><span>Taylor</span></div>
+          <div class="top8-item"><img src="https://i.pravatar.cc/64?img=15" alt="Drew" /><span>Drew</span></div>
+        </div>
+      </div>
+
+      <!-- Guestbook -->
+      <div class="widget">
+        <h3 class="widget-title">Guestbook <span class="badge">3 new</span></h3>
+        <div class="guestbook" id="guestbook">
+          <div class="gb-entry">
+            <img src="https://i.pravatar.cc/32?img=12" alt="" />
+            <div>
+              <strong>Jamie</strong>
+              <p>miss hanging out!! we need to plan something 🤙</p>
+              <span class="gb-time">2h ago</span>
+            </div>
+          </div>
+          <div class="gb-entry">
+            <img src="https://i.pravatar.cc/32?img=33" alt="" />
+            <div>
+              <strong>Sam K.</strong>
+              <p>Your taste in music is elite as always 🎵</p>
+              <span class="gb-time">1d ago</span>
+            </div>
+          </div>
+          <div class="gb-entry">
+            <img src="https://i.pravatar.cc/32?img=60" alt="" />
+            <div>
+              <strong>Taylor</strong>
+              <p>Love the new profile look!! 🔥</p>
+              <span class="gb-time">3d ago</span>
+            </div>
+          </div>
+        </div>
+        <div class="gb-input-row">
+          <input class="gb-input" id="gbInput" placeholder="Leave a message..." />
+          <button class="btn-primary small" id="gbBtn">Post</button>
+        </div>
+      </div>
+
+      <!-- Who's Online -->
+      <div class="widget">
+        <h3 class="widget-title">Friends Online <span class="online-count">4</span></h3>
+        <div class="online-list">
+          <div class="online-item">
+            <img src="https://i.pravatar.cc/32?img=5" alt="" />
+            <span>Morgan Lee</span>
+            <span class="dot green"></span>
+          </div>
+          <div class="online-item">
+            <img src="https://i.pravatar.cc/32?img=44" alt="" />
+            <span>Jordan</span>
+            <span class="dot green"></span>
+          </div>
+          <div class="online-item">
+            <img src="https://i.pravatar.cc/32?img=19" alt="" />
+            <span>Riley W.</span>
+            <span class="dot yellow"></span>
+          </div>
+          <div class="online-item">
+            <img src="https://i.pravatar.cc/32?img=15" alt="" />
+            <span>Drew</span>
+            <span class="dot green"></span>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- MODAL OVERLAY -->
+  <div class="modal-overlay hidden" id="modalOverlay">
+
+    <!-- Log In Modal -->
+    <div class="modal hidden" id="loginModal">
+      <button class="modal-close">✕</button>
+      <h2 class="modal-title">Welcome back</h2>
+      <p class="modal-sub">Log in to your account</p>
+      <form class="modal-form" id="loginForm">
+        <label>Email<input type="email" placeholder="you@example.com" required /></label>
+        <label>Password<input type="password" placeholder="••••••••" required /></label>
+        <button type="submit" class="btn-primary full-width">Log In</button>
+        <p class="modal-switch">Don't have an account? <a href="#" id="switchToSignup">Sign up</a></p>
+      </form>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div class="modal hidden" id="signupModal">
+      <button class="modal-close">✕</button>
+      <h2 class="modal-title">Join MySpace</h2>
+      <p class="modal-sub">Create your profile</p>
+      <form class="modal-form" id="signupForm">
+        <label>Display Name<input type="text" placeholder="Your name" required /></label>
+        <label>Email<input type="email" placeholder="you@example.com" required /></label>
+        <label>Password<input type="password" placeholder="••••••••" required /></label>
+        <button type="submit" class="btn-primary full-width">Create Account</button>
+        <p class="modal-switch">Already have an account? <a href="#" id="switchToLogin">Log in</a></p>
+      </form>
+    </div>
+
+    <!-- Send Message Modal -->
+    <div class="modal hidden" id="messageModal">
+      <button class="modal-close">✕</button>
+      <h2 class="modal-title">Send Message</h2>
+      <p class="modal-sub">To: <strong id="messageRecipient">Tal Bogachov</strong></p>
+      <form class="modal-form" id="messageForm">
+        <label>Subject<input type="text" placeholder="What's up?" /></label>
+        <label>Message<textarea placeholder="Type your message..." rows="4" required></textarea></label>
+        <button type="submit" class="btn-primary full-width">Send Message</button>
+      </form>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal hidden" id="editProfileModal">
+      <button class="modal-close">✕</button>
+      <h2 class="modal-title">Edit Profile</h2>
+      <form class="modal-form" id="editProfileForm">
+        <label>Display Name<input type="text" id="editName" placeholder="Your name" required /></label>
+        <label>Age<input type="number" id="editAge" placeholder="24" min="13" max="120" /></label>
+        <label>Tagline<input type="text" id="editTagline" placeholder='"living for the moment ✨"' /></label>
+        <label>Location<input type="text" id="editLocation" placeholder="Los Angeles, CA" /></label>
+        <label>Music Genre<input type="text" id="editGenre" placeholder="Indie / Alt" /></label>
+        <button type="submit" class="btn-primary full-width">Save Changes</button>
+      </form>
+    </div>
+
+    <!-- Music Attach Modal -->
+    <div class="modal hidden" id="musicModal">
+      <button class="modal-close">✕</button>
+      <h2 class="modal-title">Share a Song</h2>
+      <form class="modal-form" id="musicForm">
+        <label>Song Title<input type="text" id="songTitleInput" placeholder="e.g. Neon Dreams" required /></label>
+        <label>Artist<input type="text" id="songArtistInput" placeholder="e.g. The Midnight" required /></label>
+        <button type="submit" class="btn-primary full-width">Attach Song</button>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- Mini Profile Popup -->
+  <div class="mini-profile hidden" id="miniProfile">
+    <button class="mini-close" id="miniClose">✕</button>
+    <img class="mini-avatar" id="miniAvatar" src="" alt="" />
+    <div class="mini-name" id="miniName"></div>
+    <div class="mini-status" id="miniStatus"></div>
+    <div class="mini-actions">
+      <button class="btn-primary small" id="miniMsg">Message</button>
+      <button class="btn-ghost small" id="miniView">View Profile</button>
+    </div>
+  </div>
+
+  <!-- Hidden file inputs -->
+  <input type="file" id="photoInput" accept="image/*" style="display:none" />
+  <input type="file" id="avatarInput" accept="image/*" style="display:none" />
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+/* Mobile overrides for homepage inside the app */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+body { overscroll-behavior: none; }
+
+.navbar {
+  padding-top: var(--safe-top);
+  height: calc(56px + var(--safe-top));
+}
+
+/* Stack hero vertically, hide preview card on small screens */
+@media (max-width: 700px) {
+  .hero {
+    flex-direction: column;
+    padding: calc(80px + var(--safe-top)) 24px 60px;
+    text-align: center;
+    gap: 48px;
+    min-height: unset;
+  }
+
+  .hero-content { max-width: 100%; }
+
+  .hero-badge { margin: 0 auto 24px; }
+
+  .hero-title { font-size: 2.2rem; letter-spacing: -1px; }
+
+  .hero-sub { margin: 0 auto 28px; font-size: 0.95rem; }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-ctas .btn-primary,
+  .hero-ctas .btn-ghost {
+    width: 100%;
+    max-width: 320px;
+    padding: 16px 24px;
+    font-size: 1rem;
+  }
+
+  /* Hide the decorative preview on mobile — focus on CTA */
+  .hero-preview { display: none; }
+
+  /* Features: single column */
+  .features-grid { grid-template-columns: 1fr; gap: 14px; }
+
+  .features { padding: 64px 24px; }
+  .section-title { font-size: 1.7rem; }
+
+  /* Social proof: wrap */
+  .sp-inner { flex-direction: column; gap: 24px; }
+  .sp-divider { width: 40px; height: 1px; }
+
+  /* CTA */
+  .cta-section { padding: 80px 24px; }
+  .cta-title { font-size: 1.8rem; }
+  #ctaSignup { width: 100%; max-width: 320px; padding: 16px; }
+
+  /* Footer */
+  .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+  .footer-links { justify-content: center; flex-wrap: wrap; gap: 20px; }
+
+  /* Modals: slide up as bottom sheet */
+  .modal-overlay { align-items: flex-end; }
+  .modal {
+    border-radius: 20px 20px 0 0;
+    max-width: 100%;
+    padding: 28px 24px calc(24px + var(--safe-bottom));
+    transform: translateY(40px);
+  }
+  .modal.visible { transform: translateY(0); }
+
+  /* Toast */
+  .toast-container {
+    bottom: calc(16px + var(--safe-bottom));
+    right: 16px;
+    left: 16px;
+  }
+  .toast { text-align: center; }
+}
