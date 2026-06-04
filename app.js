@@ -66,36 +66,79 @@ document.getElementById('signupForm').addEventListener('submit', e => {
   showToast('Account created! Welcome to MySpace 🎉', 'success');
 });
 
-// ===== ADD FRIEND =====
-const addFriendBtn = document.getElementById('addFriendBtn');
-let isFriend = false;
+// ===== EDIT PROFILE =====
+const profileAvatarEl   = document.getElementById('profileAvatar');
+const profileNameEl     = document.getElementById('profileName');
+const profileAgeEl      = document.getElementById('profileAge');
+const profileTaglineEl  = document.getElementById('profileTagline');
+const profileLocationEl = document.getElementById('profileLocation');
+const profileGenreEl    = document.getElementById('profileGenre');
+const postBoxAvatar     = document.querySelector('.post-box-avatar');
 
-addFriendBtn.addEventListener('click', () => {
-  isFriend = !isFriend;
-  if (isFriend) {
-    addFriendBtn.textContent = 'Friends ✓';
-    addFriendBtn.classList.remove('btn-primary');
-    addFriendBtn.classList.add('btn-friend');
-    showToast('Friend request sent! 🤝', 'success');
-  } else {
-    addFriendBtn.textContent = 'Add Friend';
-    addFriendBtn.classList.add('btn-primary');
-    addFriendBtn.classList.remove('btn-friend');
-    showToast('Friend removed', 'info');
-  }
+// Open edit profile modal, pre-fill current values
+document.getElementById('editProfileBtn').addEventListener('click', () => {
+  document.getElementById('editName').value     = profileNameEl.childNodes[0].textContent.trim();
+  document.getElementById('editAge').value      = profileAgeEl.textContent.trim();
+  document.getElementById('editTagline').value  = profileTaglineEl.textContent.trim();
+  document.getElementById('editLocation').value = profileLocationEl.textContent.replace('📍 ', '').trim();
+  document.getElementById('editGenre').value    = profileGenreEl.textContent.replace('🎵 ', '').trim();
+  openModal('editProfileModal');
 });
 
-// ===== SEND MESSAGE =====
-document.getElementById('sendMessageBtn').addEventListener('click', () => {
-  document.getElementById('messageRecipient').textContent = 'Tal Bogachov';
-  openModal('messageModal');
-});
-
-document.getElementById('messageForm').addEventListener('submit', e => {
+document.getElementById('editProfileForm').addEventListener('submit', e => {
   e.preventDefault();
+  const name     = document.getElementById('editName').value.trim();
+  const age      = document.getElementById('editAge').value.trim();
+  const tagline  = document.getElementById('editTagline').value.trim();
+  const location = document.getElementById('editLocation').value.trim();
+  const genre    = document.getElementById('editGenre').value.trim();
+
+  profileNameEl.childNodes[0].textContent = name + ' ';
+  if (age)      profileAgeEl.textContent      = age;
+  if (tagline)  profileTaglineEl.textContent  = tagline;
+  if (location) profileLocationEl.textContent = '📍 ' + location;
+  if (genre)    profileGenreEl.textContent    = '🎵 ' + genre;
+
+  document.title = name + ' — MySpace';
   closeModal();
-  showToast('Message sent! 📨', 'success');
-  e.target.reset();
+  showToast('Profile updated! ✨', 'success');
+});
+
+// ===== AVATAR EDIT =====
+const avatarInput = document.getElementById('avatarInput');
+
+document.getElementById('avatarWrap').addEventListener('click', () => avatarInput.click());
+
+avatarInput.addEventListener('change', () => {
+  const file = avatarInput.files[0];
+  if (!file) return;
+  const url = URL.createObjectURL(file);
+  profileAvatarEl.src = url;
+  if (postBoxAvatar) postBoxAvatar.src = url;
+  // Update all "my" comment/guestbook avatars
+  document.querySelectorAll('.comment-input-row .comment-avatar').forEach(img => img.src = url);
+  avatarInput.value = '';
+  showToast('Profile photo updated! 📷', 'success');
+});
+
+// ===== BANNER EDIT =====
+const banners = [
+  'linear-gradient(135deg, #4c1d95, #7c3aed, #a855f7, #ec4899)',
+  'linear-gradient(135deg, #0f172a, #1e3a5f, #0ea5e9, #38bdf8)',
+  'linear-gradient(135deg, #064e3b, #065f46, #10b981, #6ee7b7)',
+  'linear-gradient(135deg, #7f1d1d, #991b1b, #ef4444, #fca5a5)',
+  'linear-gradient(135deg, #1c1917, #292524, #a8a29e, #f5f5f4)',
+  'linear-gradient(135deg, #4a044e, #86198f, #e879f9, #f0abfc)',
+  'linear-gradient(135deg, #0c4a6e, #0369a1, #38bdf8, #7dd3fc)',
+];
+let bannerIndex = 0;
+const profileBannerEl = document.getElementById('profileBanner');
+
+document.getElementById('bannerEditBtn').addEventListener('click', e => {
+  e.stopPropagation();
+  bannerIndex = (bannerIndex + 1) % banners.length;
+  profileBannerEl.style.background = banners[bannerIndex];
+  showToast('Banner updated! 🎨', 'success');
 });
 
 // ===== PHOTO ATTACH =====

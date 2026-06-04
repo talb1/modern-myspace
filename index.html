@@ -32,17 +32,20 @@
     <!-- LEFT SIDEBAR: Profile Card -->
     <aside class="sidebar-left">
       <div class="profile-card">
-        <div class="profile-banner"></div>
-        <div class="profile-avatar-wrap">
-          <img class="profile-avatar" src="https://i.pravatar.cc/120?img=47" alt="Avatar" />
+        <div class="profile-banner" id="profileBanner" title="Click to change banner">
+          <button class="banner-edit-btn" id="bannerEditBtn">🎨 Change Banner</button>
+        </div>
+        <div class="profile-avatar-wrap" id="avatarWrap" title="Click to change photo">
+          <img class="profile-avatar" id="profileAvatar" src="https://i.pravatar.cc/120?img=47" alt="Avatar" />
+          <div class="avatar-overlay">📷</div>
           <span class="online-dot"></span>
         </div>
         <div class="profile-info">
-          <h2 class="profile-name">Tal Bogachov <span class="profile-age">24</span></h2>
-          <p class="profile-tagline">"living for the moment ✨"</p>
+          <h2 class="profile-name" id="profileName">Tal Bogachov <span class="profile-age" id="profileAge">24</span></h2>
+          <p class="profile-tagline" id="profileTagline">"living for the moment ✨"</p>
           <div class="profile-meta">
-            <span>📍 Los Angeles, CA</span>
-            <span>🎵 Indie / Alt</span>
+            <span id="profileLocation">📍 Los Angeles, CA</span>
+            <span id="profileGenre">🎵 Indie / Alt</span>
           </div>
           <div class="profile-stats">
             <div class="stat"><span class="stat-num">1,284</span><span class="stat-label">Friends</span></div>
@@ -50,8 +53,7 @@
             <div class="stat"><span class="stat-num">62</span><span class="stat-label">Comments</span></div>
           </div>
           <div class="profile-actions">
-            <button class="btn-primary full-width" id="addFriendBtn">Add Friend</button>
-            <button class="btn-ghost full-width" id="sendMessageBtn">Send Message</button>
+            <button class="btn-primary full-width" id="editProfileBtn">✏️ Edit Profile</button>
           </div>
         </div>
       </div>
@@ -397,6 +399,30 @@
       </form>
     </div>
 
+    <!-- Edit Profile Modal -->
+    <div class="modal hidden" id="editProfileModal">
+      <button class="modal-close">✕</button>
+      <h2 class="modal-title">Edit Profile</h2>
+      <form class="modal-form" id="editProfileForm">
+        <label>Display Name
+          <input type="text" id="editName" placeholder="Your name" required />
+        </label>
+        <label>Age
+          <input type="number" id="editAge" placeholder="24" min="13" max="120" />
+        </label>
+        <label>Tagline
+          <input type="text" id="editTagline" placeholder='"living for the moment ✨"' />
+        </label>
+        <label>Location
+          <input type="text" id="editLocation" placeholder="Los Angeles, CA" />
+        </label>
+        <label>Music Genre
+          <input type="text" id="editGenre" placeholder="Indie / Alt" />
+        </label>
+        <button type="submit" class="btn-primary full-width">Save Changes</button>
+      </form>
+    </div>
+
     <!-- Music Attach Modal -->
     <div class="modal hidden" id="musicModal">
       <button class="modal-close" data-close="musicModal">✕</button>
@@ -426,8 +452,9 @@
     </div>
   </div>
 
-  <!-- Hidden file input for photo attach -->
+  <!-- Hidden file inputs -->
   <input type="file" id="photoInput" accept="image/*" style="display:none" />
+  <input type="file" id="avatarInput" accept="image/*" style="display:none" />
 
   <script src="app.js"></script>
 </body>

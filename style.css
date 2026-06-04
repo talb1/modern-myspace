@@ -155,12 +155,33 @@ body {
 .profile-banner {
   height: 80px;
   background: linear-gradient(135deg, #4c1d95, #7c3aed, #a855f7, #ec4899);
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 6px 8px;
 }
+
+.banner-edit-btn {
+  background: rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 0.72rem;
+  padding: 4px 10px;
+  border-radius: 99px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+.profile-banner:hover .banner-edit-btn { opacity: 1; }
 
 .profile-avatar-wrap {
   position: relative;
   margin: -36px 0 0 16px;
   display: inline-block;
+  cursor: pointer;
 }
 
 .profile-avatar {
@@ -169,7 +190,24 @@ body {
   border-radius: 50%;
   border: 3px solid var(--surface);
   display: block;
+  transition: filter 0.2s;
 }
+.profile-avatar-wrap:hover .profile-avatar { filter: brightness(0.7); }
+
+.avatar-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+  margin-top: 0;
+  border-radius: 50%;
+}
+.profile-avatar-wrap:hover .avatar-overlay { opacity: 1; }
 
 .online-dot {
   position: absolute;
